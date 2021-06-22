@@ -1,24 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Tree from './model/tree';
+import Node from './model/node';
+import Directory from './component/Directory.js'
+import {useDispatch, useSelector} from 'react-redux'
+import {addRootNode} from './store/slice/nodeSlice';
+import ErrorBoundary from './component/ErrorBoundary';
 
 function App() {
+  let dispatch= useDispatch();
+  let rootNode= new Node('root',null);
+  const tree= new Tree(rootNode);
+  dispatch(addRootNode(rootNode));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <ErrorBoundary>
+        <div className="App">
+            <Directory />    
+        </div>
+  </ErrorBoundary>    
   );
 }
 
